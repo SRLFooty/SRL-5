@@ -1125,3 +1125,51 @@ begin
   end;
   FreeBitmap(Cross);
 end;
+
+(*
+MissInv
+~~~~~~~~~~~~~~
+
+.. code-block:: pascal
+
+    function MissInv(inv:integer; Button:Variant): Integer;
+
+    Will click an invslot touching "inv" Invslot(Up,
+    down, left, right). Will click using "button" button. Returns
+    the invslot that was clicked.
+
+.. note::
+
+    Author: Footy
+    Modified by Nebula
+
+Example: MissInv(6, true) left clicks either slot 2, 5, 7, or 10.
+
+.. code-block:: pascal
+
+*)
+Function MissInv(inv:integer; Button:Variant):integer;
+var
+  i:integer;
+  TDirectionArray: array of Boolean;
+  TMissclickArray:TIntegerArray;
+  slotArr: array of TIntegerArray;
+begin
+  TDirectionArray := [true, true, true, true];
+  slotArr := [TIntegerArray([1, 2, 3, 4]), TIntegerArray([1, 5, 9, 13, 17, 21, 25]), TIntegerArray([25, 26, 27, 28]), TIntegerArray([4, 8, 12, 16, 20, 24, 28])];
+  for i := 0 to 3 do
+  begin
+    if (not InIntArray(slotArr[i], inv)) then
+    begin
+      setlength(TMissclickArray, (Length(TMissClickArray) + 1));
+      case i of
+        0: TMissclickArray[high(TMissclickArray)] := inv - 4;
+        1: TMIssclickArray[high(TMissclickArray)] := inv - 1;
+        2: TMissclickarray[high(TMissclickArray)] := inv + 4;
+        3: TMissclickarray[high(TMissclickArray)] := inv + 1;
+      end;
+    end;
+  end;
+  result := TMissclickArray[random(length(TMissclickArray))];
+  invmouse(result, Button);
+end;
